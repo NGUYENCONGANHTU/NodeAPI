@@ -1,13 +1,15 @@
 const userService = require("../services/user.service");
-const uid = require("uuid");
-const createUser = (req, res) => {
+const { v4: uuidv4 } = require("uuid");
+const has = require("../../configs/jwt");
+const createUser = async (req, res) => {
   try {
+    const hashedPassword = await has.hashPassword(req.body.password);
     const body = {
-      id: uid(),
+      id: uuidv4(),
       phone: req.body.phone,
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
       role: "10",
       lang: "en",
     };
@@ -20,15 +22,15 @@ const createUser = (req, res) => {
   }
 };
 
-const login = (req, res) => {
+const login = async (req, res) => {
   try {
     const body = {
-      name: req.body.name,
-      password: req.body.password,
+      email: req.body.email,
+      password: has.hashPassword(req.body.password),
     };
-    const repose = userService.login(body);
+    const repose = await userService.login(body);
     if (repose) {
-      res.status(201).json(repose);
+      res.status(200).json(repose);
     }
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" + error });

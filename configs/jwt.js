@@ -1,34 +1,32 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const hashPassword = (pass) => {
+const jwt = require("jsonwebtoken"); // Ensure this is correctly configured
+
+const hashPassword = async (pass) => {
   try {
-    const salt = bcrypt.genSalt(10);
-    const hash = bcrypt.hash(pass, salt);
-    return hash;
+    const salt = await bcrypt.genSalt(10);
+    return await bcrypt.hash(pass, salt);
   } catch (error) {
-    throw new Error("err hashPassword");
+    throw new Error("Error hashing password");
   }
 };
 
-const generateToken = (info, key, timeEX) => {
-  if (!info || !key || !timeEX) {
-    throw new Error("Error: generateToken");
+const generateToken = (info, key, expiresIn) => {
+  if (!info || !key || !expiresIn) {
+    throw new Error("Error generating token");
   }
-
-  const token = jwt.sign(info, key, { expiresIn: timeEX });
-  return token;
+  return jwt.sign(info, key, { expiresIn });
 };
 
 const verifyToken = (token, key) => {
   try {
-    const decode = jwt.verify(token, key);
-    return decode;
+    return jwt.verify(token, key);
   } catch (error) {
-    throw new Error("Error: verifyToken");
+    throw new Error("Error verifying token");
   }
 };
 
 module.exports = {
   verifyToken,
   generateToken,
+  hashPassword,
 };

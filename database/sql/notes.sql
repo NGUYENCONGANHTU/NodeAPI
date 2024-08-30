@@ -20,3 +20,9 @@ CREATE TABLE IF NOT EXISTS `books` (
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `user` (`id`, `phone`, `name`, `email`, `password`, `role`, `lang`, `created_at`, `updated_at`)
+VALUES
+    ('2', '0987654321', 'Admin', 'admin@gmail.com', MD5('123456789'), 'user', 'en', NOW(), NOW()),
+    ('3', '1122334455', 'Tu name', 'tu@gmail.com', MD5('123456789'), 'user', 'fr', NOW(), NOW()),
+    ('4', '5566778899', 'Nu Thi', 'thi@gmail.com', MD5('123456789'), 'moderator', 'de', NOW(), NOW());

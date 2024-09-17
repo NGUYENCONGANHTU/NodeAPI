@@ -23,6 +23,6 @@ CREATE TABLE IF NOT EXISTS `books` (
 
 INSERT INTO `user` (`id`, `phone`, `name`, `email`, `password`, `role`, `lang`, `created_at`, `updated_at`)
 VALUES
-    ('2', '0987654321', 'Admin', 'admin@gmail.com', MD5('123456789'), 'user', 'en', NOW(), NOW()),
-    ('3', '1122334455', 'Tu name', 'tu@gmail.com', MD5('123456789'), 'user', 'fr', NOW(), NOW()),
-    ('4', '5566778899', 'Nu Thi', 'thi@gmail.com', MD5('123456789'), 'moderator', 'de', NOW(), NOW());
+    ('92b8f560-01dd-4319-a0be-d71204dfs', '0987654321', 'Admin', 'admin@gmail.com', MD5('123456789'), 'user', 'en', NOW(), NOW()),
+    ('92btq560-01dd-4319-a0be-d71204213', '1122334455', 'Tu name', 'tu@gmail.com', MD5('123456789'), 'user', 'fr', NOW(), NOW()),
+    ('92btq560-yuq-4319-a0be-d71204213', '5566778899', 'Nu Thi', 'thi@gmail.com', MD5('123456789'), 'moderator', 'de', NOW(), NOW());

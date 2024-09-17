@@ -11,7 +11,7 @@ const register = async (data) => {
       if (err) {
         return callback(err);
       }
-      const query = await`SELECT * FROM user ORDER BY created_at DESC`;
+      const query = `SELECT * FROM user ORDER BY created_at DESC`;
       const res = showDataSql(query);
       return res[0];
     });
@@ -48,7 +48,45 @@ const login = async (data) => {
   }
 };
 
+const userInfo = async (user_id) => {
+  try {
+    const url = `SELECT * FROM user WHERE id = ? LIMIT 1`;
+    const query = util.promisify(dbConnection.query).bind(dbConnection);
+    const result = await query(url, [user_id]);
+    return result;
+  } catch (error) {
+    throw new Error("user userInfo err");
+  }
+};
+
+const updateProfile = async (user_id, data) => {
+  try {
+    const showDataSql = util.promisify(dbConnection.query).bind(dbConnection);
+    const updateQuery = "UPDATE user SET ? WHERE id = ?";
+    await showDataSql(updateQuery, [data, id]);
+
+    const url = `SELECT * FROM user WHERE id = ? LIMIT 1`;
+    const query = util.promisify(dbConnection.query).bind(dbConnection);
+    const result = await query(url, [id]);
+    return result[0];
+  } catch (error) {
+    throw new Error("update userInfo err");
+  }
+};
+
+const listUser = async () => {
+  try {
+    const url = `SELECT * FROM user`;
+    const query = util.promisify(dbConnection.query).bind(dbConnection);
+    const result = await query(url);
+    return result;
+  } catch (error) {
+    throw new Error("user listUser err");
+  }
+};
+
 module.exports = {
-  login,
+  updateProfile,
   register,
+  userInfo,
 };
